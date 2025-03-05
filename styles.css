@@ -248,9 +248,7 @@ footer {
     }
     
     .timeline-tooltip {
-        top: auto;
-        left: 15px;
-        transform: none;
+        display: none;
     }
     
     .content {
