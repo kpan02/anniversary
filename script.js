@@ -135,12 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetElement = document.getElementById(photo);
                 
                 if (targetElement) {
-                    // Don't add active class here, let the IntersectionObserver handle it
                     // Just scroll to the element
                     targetElement.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Prevent default active state changes
-                    e.stopPropagation();
                 }
             });
             
@@ -154,11 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const photoCard = document.createElement('div');
         photoCard.className = 'photo-card';
         photoCard.id = photo; // Add ID for scrolling
-        
-        // Add special class for first photo to handle its active state differently
-        if (index === 0) {
-            photoCard.classList.add('first-photo');
-        }
         
         const img = document.createElement('img');
         // Get the file extension by checking what's available in the images folder
@@ -199,61 +190,55 @@ document.addEventListener('DOMContentLoaded', () => {
         gallery.appendChild(photoCard);
     });
     
-    // Intersection Observer to highlight current month in timeline
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const photoId = entry.target.id;
+    // Simple scroll handler that updates the timeline based on scroll position
+    let lastScrollTop = 0;
+    let scrollTimeout;
+    
+    function updateTimelineOnScroll() {
+        // Clear any existing timeout
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        
+        // Set a timeout to update the timeline after scrolling stops
+        scrollTimeout = setTimeout(() => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const viewportHeight = window.innerHeight;
+            const documentHeight = document.body.scrollHeight;
             
-            // Special handling for the first photo
-            if (entry.target.classList.contains('first-photo')) {
-                // If we're at the top of the page, activate the first marker
-                if (window.scrollY < 200) {
-                    document.querySelectorAll('.timeline-month-marker').forEach(item => {
-                        if (item.dataset.target === photoId) {
-                            item.classList.add('active');
-                        } else {
-                            item.classList.remove('active');
-                        }
-                    });
+            // Calculate which photo is most visible
+            const photoCards = document.querySelectorAll('.photo-card');
+            let mostVisiblePhoto = null;
+            let maxVisibility = 0;
+            
+            photoCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                // Calculate how much of the card is visible in the viewport
+                const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+                const visibility = visibleHeight > 0 ? visibleHeight / rect.height : 0;
+                
+                if (visibility > maxVisibility) {
+                    maxVisibility = visibility;
+                    mostVisiblePhoto = card.id;
                 }
-            } 
-            // Normal handling for other photos
-            else if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-                document.querySelectorAll('.timeline-month-marker').forEach(item => {
-                    if (item.dataset.target === photoId) {
-                        item.classList.add('active');
+            });
+            
+            // Update the active marker
+            if (mostVisiblePhoto) {
+                document.querySelectorAll('.timeline-month-marker').forEach(marker => {
+                    if (marker.dataset.target === mostVisiblePhoto) {
+                        marker.classList.add('active');
                     } else {
-                        item.classList.remove('active');
+                        marker.classList.remove('active');
                     }
                 });
             }
-        });
-    }, { 
-        threshold: [0.1, 0.5, 0.7],
-        rootMargin: '-100px 0px'
-    });
+        }, 100); // Wait 100ms after scrolling stops
+    }
     
-    // Observe all photo cards
-    document.querySelectorAll('.photo-card').forEach(card => {
-        observer.observe(card);
-    });
+    // Add scroll event listener
+    window.addEventListener('scroll', updateTimelineOnScroll, { passive: true });
     
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        // No need to change positioning based on screen size anymore
-    });
-    
-    // Add scroll event listener to handle the first photo marker
-    window.addEventListener('scroll', () => {
-        if (window.scrollY < 200) {
-            const firstPhotoId = photos[0];
-            document.querySelectorAll('.timeline-month-marker').forEach(item => {
-                if (item.dataset.target === firstPhotoId) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-        }
-    });
+    // Initial update
+    updateTimelineOnScroll();
 }); 

@@ -77,7 +77,7 @@ header h1 {
     background-color: #aaa;
     left: -2px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: none; /* Remove transition to prevent flickering */
 }
 
 /* Add a larger invisible clickable area */
@@ -148,7 +148,7 @@ header h1 {
 
 .photo-card img {
     /* width: 100%;  */
-    width: 60%; /* temporary width for the sake of testing */
+    width: 100%; /* temporary width for the sake of testing */
     height: auto; 
     display: block;
     margin: 0 auto;
@@ -191,6 +191,9 @@ footer {
         flex-direction: column;
         padding-left: 5px;
         left: 0;
+        will-change: auto;
+        transform: none;
+        user-select: none;
     }
     
     body {
@@ -219,6 +222,7 @@ footer {
         top: auto;
         left: -2px;
         transform: none;
+        backface-visibility: visible;
     }
     
     .timeline-month-marker::after {
