@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gallery = document.querySelector('.gallery');
+    const timeline = document.querySelector('.timeline');
     
     // Define photo descriptions
     const photoDescriptions = {
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'dec23': 'Scum Gang @ Velvet Taco',
         'jan24': 'stank',
         'feb24': 'Elephant in the room.....',
-        'mar24': 'Finally made it out the friendzone... Our first public photo @ VIVID showcase.',
+        'mar24': 'Finally made it out the friendzone. Our first public photo @ VIVID showcase.',
         'apr24': 'Senior Prom',
         'may24': 'We made it!',
         'jun24': 'Happy 21st :)',
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'mar25': 'Happy One Year :)'
     };
     
+    // Define month names
     const monthNames = {
         'jan': 'January',
         'feb': 'February',
@@ -79,12 +81,87 @@ document.addEventListener('DOMContentLoaded', () => {
         'jan25', 'feb25', 'mar25'
     ];
     
-    // Create photo cards
+    // Group photos by year
+    const photosByYear = {};
     photos.forEach(photo => {
+        const year = '20' + photo.substring(3);
+        if (!photosByYear[year]) {
+            photosByYear[year] = [];
+        }
+        photosByYear[year].push(photo);
+    });
+    
+    // Create timeline
+    // First, create the line
+    const timelineLine = document.createElement('div');
+    timelineLine.className = 'timeline-line';
+    timeline.appendChild(timelineLine);
+    
+    // Calculate total months and spacing
+    const totalMonths = photos.length;
+    const years = Object.keys(photosByYear).sort();
+    
+    // Create year markers and month markers
+    years.forEach(year => {
+        const yearIndex = photos.findIndex(photo => photo.substring(3) === year.substring(2));
+        const yearPosition = (yearIndex / (totalMonths - 1)) * 100;
+        
+        // Create year marker
+        const yearMarker = document.createElement('div');
+        yearMarker.className = 'timeline-year-marker';
+        yearMarker.textContent = year;
+        yearMarker.style.top = `${yearPosition}%`;
+        timelineLine.appendChild(yearMarker);
+        
+        // Create month markers for this year
+        photosByYear[year].forEach((photo, monthIndex) => {
+            const photoIndex = photos.indexOf(photo);
+            const position = (photoIndex / (totalMonths - 1)) * 100;
+            
+            const monthMarker = document.createElement('div');
+            monthMarker.className = 'timeline-month-marker';
+            monthMarker.dataset.target = photo;
+            monthMarker.style.top = `${position}%`;
+            
+            // Create tooltip
+            const tooltip = document.createElement('div');
+            tooltip.className = 'timeline-tooltip';
+            tooltip.textContent = formatDate(photo);
+            monthMarker.appendChild(tooltip);
+            
+            // Add click event to scroll to the photo
+            monthMarker.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById(photo);
+                
+                if (targetElement) {
+                    // Don't add active class here, let the IntersectionObserver handle it
+                    // Just scroll to the element
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Prevent default active state changes
+                    e.stopPropagation();
+                }
+            });
+            
+            timelineLine.appendChild(monthMarker);
+        });
+    });
+    
+    // Create photo cards
+    photos.forEach((photo, index) => {
+        // Create elements
         const photoCard = document.createElement('div');
         photoCard.className = 'photo-card';
+        photoCard.id = photo; // Add ID for scrolling
+        
+        // Add special class for first photo to handle its active state differently
+        if (index === 0) {
+            photoCard.classList.add('first-photo');
+        }
         
         const img = document.createElement('img');
+        // Get the file extension by checking what's available in the images folder
         img.src = `images/${photo}.JPG`;
         img.alt = formatDate(photo);
         img.onerror = function() {
@@ -112,10 +189,71 @@ document.addEventListener('DOMContentLoaded', () => {
         description.className = 'photo-description';
         description.textContent = photoDescriptions[photo] || '---';
         
+        // Assemble the card
         caption.appendChild(date);
         caption.appendChild(description);
         photoCard.appendChild(img);
         photoCard.appendChild(caption);
+        
+        // Add to gallery
         gallery.appendChild(photoCard);
+    });
+    
+    // Intersection Observer to highlight current month in timeline
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const photoId = entry.target.id;
+            
+            // Special handling for the first photo
+            if (entry.target.classList.contains('first-photo')) {
+                // If we're at the top of the page, activate the first marker
+                if (window.scrollY < 200) {
+                    document.querySelectorAll('.timeline-month-marker').forEach(item => {
+                        if (item.dataset.target === photoId) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+            } 
+            // Normal handling for other photos
+            else if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                document.querySelectorAll('.timeline-month-marker').forEach(item => {
+                    if (item.dataset.target === photoId) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+    }, { 
+        threshold: [0.1, 0.5, 0.7],
+        rootMargin: '-100px 0px'
+    });
+    
+    // Observe all photo cards
+    document.querySelectorAll('.photo-card').forEach(card => {
+        observer.observe(card);
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        // No need to change positioning based on screen size anymore
+    });
+    
+    // Add scroll event listener to handle the first photo marker
+    window.addEventListener('scroll', () => {
+        if (window.scrollY < 200) {
+            const firstPhotoId = photos[0];
+            document.querySelectorAll('.timeline-month-marker').forEach(item => {
+                if (item.dataset.target === firstPhotoId) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
     });
 }); 

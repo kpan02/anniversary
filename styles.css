@@ -12,6 +12,11 @@ body {
     padding: 20px;
 }
 
+.container {
+    display: flex;
+    position: relative;
+}
+
 header {
     text-align: center;
     margin-bottom: 40px;
@@ -21,7 +26,107 @@ header {
 header h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: black;
+    color: #e91e63;
+}
+
+.timeline {
+    position: sticky;
+    top: 20px;
+    width: 80px;
+    height: calc(100vh - 40px);
+    padding: 20px 0;
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-line {
+    position: relative;
+    width: 2px;
+    background-color: #ddd;
+    flex-grow: 1;
+    margin: 10px 0;
+}
+
+.timeline-year-marker {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: gray;
+    transform: translateY(-50%);
+    padding-left: 8px; /* Added padding to shift text right */
+}
+
+.timeline-year-marker::before {
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    background-color: black;
+    left: 11px; /* Adjusted left position to match text shift */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.timeline-month-marker {
+    position: absolute;
+    width: 6px;
+    height: 1px;
+    background-color: #aaa;
+    left: -2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Add a larger invisible clickable area */
+.timeline-month-marker::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    left: -7px;
+    top: -10px;
+    z-index: 5;
+}
+
+.timeline-month-marker:hover {
+    background-color: #e91e63;
+    width: 8px;
+    left: -3px;
+}
+
+.timeline-month-marker.active::after {
+    content: '❤️';
+    width: 5px;
+    height: 5px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.timeline-tooltip {
+    position: absolute;
+    left: 15px;
+    background-color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.timeline-month-marker:hover .timeline-tooltip {
+    opacity: 1;
+}
+
+.content {
+    flex: 1;
 }
 
 .gallery {
@@ -38,12 +143,12 @@ header h1 {
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-margin-top: 20px;
 }
-
 
 .photo-card img {
     /* width: 100%;  */
-    width: 50%; /* temporary width for the sake of testing */
+    width: 60%; /* temporary width for the sake of testing */
     height: auto; 
     display: block;
     margin: 0 auto;
@@ -73,6 +178,63 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .container {
+        flex-direction: row;
+        padding-left: 0;
+    }
+    
+    .timeline {
+        position: sticky;
+        width: 40px;
+        height: calc(100vh - 40px);
+        margin-right: 15px;
+        flex-direction: column;
+        padding-left: 5px;
+        left: 0;
+    }
+    
+    body {
+        padding: 20px 20px 20px 10px;
+    }
+    
+    .timeline-line {
+        width: 2px;
+        height: auto;
+        margin: 10px 0;
+    }
+    
+    .timeline-year-marker {
+        width: 100%;
+        top: auto;
+        left: auto;
+    }
+    
+    .timeline-year-marker::before {
+        top: 50%;
+        left: -3px;
+        transform: translateY(-50%);
+    }
+    
+    .timeline-month-marker {
+        top: auto;
+        left: -2px;
+        transform: none;
+    }
+    
+    .timeline-month-marker::after {
+        transform: none;
+    }
+    
+    .timeline-tooltip {
+        top: auto;
+        left: 15px;
+        transform: none;
+    }
+    
+    .content {
+        flex: 1;
+    }
+    
     .gallery {
         max-width: 90%;
     }
@@ -83,7 +245,16 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .gallery {
-        max-width: 100%;
+    .timeline {
+        width: 30px; /* Even narrower on very small screens */
+        padding-left: 2px; /* Less padding on very small screens */
     }
-} 
+    
+    body {
+        padding: 20px 20px 20px 5px; /* Even less left padding */
+    }
+    
+    .gallery {
+        max-width: 90%;
+    }
+}
