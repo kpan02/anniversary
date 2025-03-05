@@ -191,52 +191,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Simple scroll handler that updates the timeline based on scroll position
-    let lastScrollTop = 0;
-    let scrollTimeout;
-    
     function updateTimelineOnScroll() {
-        // Clear any existing timeout
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
+        // Calculate which photo is most visible
+        const viewportHeight = window.innerHeight;
+        const photoCards = document.querySelectorAll('.photo-card');
+        let mostVisiblePhoto = null;
+        let maxVisibility = 0;
         
-        // Set a timeout to update the timeline after scrolling stops
-        scrollTimeout = setTimeout(() => {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const viewportHeight = window.innerHeight;
-            const documentHeight = document.body.scrollHeight;
+        photoCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            // Calculate how much of the card is visible in the viewport
+            const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+            const visibility = visibleHeight > 0 ? visibleHeight / rect.height : 0;
             
-            // Calculate which photo is most visible
-            const photoCards = document.querySelectorAll('.photo-card');
-            let mostVisiblePhoto = null;
-            let maxVisibility = 0;
-            
-            photoCards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                // Calculate how much of the card is visible in the viewport
-                const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-                const visibility = visibleHeight > 0 ? visibleHeight / rect.height : 0;
-                
-                if (visibility > maxVisibility) {
-                    maxVisibility = visibility;
-                    mostVisiblePhoto = card.id;
+            if (visibility > maxVisibility) {
+                maxVisibility = visibility;
+                mostVisiblePhoto = card.id;
+            }
+        });
+        
+        // Update the active marker
+        if (mostVisiblePhoto) {
+            document.querySelectorAll('.timeline-month-marker').forEach(marker => {
+                if (marker.dataset.target === mostVisiblePhoto) {
+                    marker.classList.add('active');
+                } else {
+                    marker.classList.remove('active');
                 }
             });
-            
-            // Update the active marker
-            if (mostVisiblePhoto) {
-                document.querySelectorAll('.timeline-month-marker').forEach(marker => {
-                    if (marker.dataset.target === mostVisiblePhoto) {
-                        marker.classList.add('active');
-                    } else {
-                        marker.classList.remove('active');
-                    }
-                });
-            }
-        }, 100); // Wait 100ms after scrolling stops
+        }
     }
     
-    // Add scroll event listener
+    // Add scroll event listener - update directly during scroll
     window.addEventListener('scroll', updateTimelineOnScroll, { passive: true });
     
     // Initial update
