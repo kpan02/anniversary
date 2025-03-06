@@ -55,7 +55,7 @@ header h1 {
     position: absolute;
     width: 100%;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: rgb(104, 104, 104);
     transform: translateY(-50%);
     left: 0;
@@ -253,11 +253,11 @@ header h1 {
     
     .timeline {
         position: sticky;
-        width: 40px;
+        width: 35px;
         height: calc(100vh - 40px);
-        margin-right: 2px;
+        margin-right: 5px;
         flex-direction: column;
-        padding-left: 5px;
+        padding-left: 4px;
         left: 0;
         will-change: auto;
         transform: none;
@@ -266,9 +266,9 @@ header h1 {
     
     body {
         padding-top: 20px;
-        padding-right: 20px;
+        padding-right: 10px;
         padding-bottom: 20px;
-        padding-left: 0px; /* Even less left padding */
+        padding-left: 5px;
     }
     
     .timeline-line {
@@ -283,6 +283,7 @@ header h1 {
         left: 0;
         display: flex;
         justify-content: center;
+        font-size: 0.7rem;
     }
     
     .timeline-year-marker::before {
@@ -310,10 +311,12 @@ header h1 {
     
     .content {
         flex: 1;
+        padding-left: 5px;
     }
     
     .gallery {
         max-width: 90%;
+        padding-left: 0px;
     }
     
     header h1 {
@@ -323,18 +326,24 @@ header h1 {
 
 @media (max-width: 480px) {
     .timeline {
-        width: 30px; /* Even narrower on very small screens */
-        padding-left: 2px; /* Less padding on very small screens */
+        width: 30px;
+        padding-left: 20px;
     }
     
     body {
         padding-top: 20px;
-        padding-right: 20px;
+        padding-right: 5px;
         padding-bottom: 20px;
-        padding-left: 0px; /* Even less left padding */
+        padding-left: 3px;
     }
     
     .gallery {
-        max-width: 100%;
+        max-width: 90%;
+        padding-left: 0px;
+    }
+    
+    .photo-card {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
