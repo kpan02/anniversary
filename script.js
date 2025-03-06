@@ -44,6 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
             monthMarker.dataset.target = photo;
             monthMarker.style.top = `${position}%`;
             
+            // Check if this month marker coincides with a year marker
+            // If it's the first month of the year (monthIndex === 0), it coincides with the year marker
+            if (monthIndex === 0) {
+                monthMarker.classList.add('year-coincides');
+            }
+            
             // Create tooltip
             const tooltip = document.createElement('div');
             tooltip.className = 'timeline-tooltip';

@@ -56,9 +56,11 @@ header h1 {
     width: 100%;
     text-align: center;
     font-size: 0.8rem;
-    color: gray;
+    color: rgb(104, 104, 104);
     transform: translateY(-50%);
-    padding-left: 8px; /* Added padding to shift text right */
+    left: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .timeline-year-marker::before {
@@ -66,10 +68,10 @@ header h1 {
     position: absolute;
     width: 0px;
     height: 0px;
-    background-color: black;
-    left: 11px; /* Adjusted left position to match text shift */
+    background-color: #f9f9f9;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
 }
 
 .timeline-month-marker {
@@ -80,6 +82,22 @@ header h1 {
     left: -2px;
     cursor: pointer;
     transition: none; /* Remove transition to prevent flickering */
+}
+
+/* Hide month markers that coincide with year markers */
+.timeline-month-marker[style*="top"] {
+    opacity: 1; /* Default opacity for all month markers */
+}
+
+/* This will be used by JavaScript to hide specific month markers */
+.timeline-month-marker.year-coincides {
+    opacity: 0;
+}
+
+/* Override the opacity for active markers even if they coincide with year markers */
+.timeline-month-marker.year-coincides.active {
+    opacity: 1;
+    pointer-events: auto; /* Re-enable interaction for active markers */
 }
 
 /* Add a larger invisible clickable area */
@@ -262,13 +280,17 @@ header h1 {
     .timeline-year-marker {
         width: 100%;
         top: auto;
-        left: auto;
+        left: 0;
+        display: flex;
+        justify-content: center;
     }
     
     .timeline-year-marker::before {
         top: 50%;
-        left: -3px;
-        transform: translateY(-50%);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0px;
+        height: 0px;
     }
     
     .timeline-month-marker {
