@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 
 * {
     margin: 0;
@@ -17,18 +19,6 @@ body {
 .container {
     display: flex;
     position: relative;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 20px;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: #e91e63;
 }
 
 .timeline {
@@ -81,23 +71,20 @@ header h1 {
     background-color: #aaa;
     left: -2px;
     cursor: pointer;
-    transition: none; /* Remove transition to prevent flickering */
+    transition: none;
 }
 
-/* Hide month markers that coincide with year markers */
 .timeline-month-marker[style*="top"] {
-    opacity: 1; /* Default opacity for all month markers */
+    opacity: 1;
 }
 
-/* This will be used by JavaScript to hide specific month markers */
 .timeline-month-marker.year-coincides {
     opacity: 0;
 }
 
-/* Override the opacity for active markers even if they coincide with year markers */
 .timeline-month-marker.year-coincides.active {
     opacity: 1;
-    pointer-events: auto; /* Re-enable interaction for active markers */
+    pointer-events: auto;
 }
 
 /* Add a larger invisible clickable area */
@@ -114,13 +101,13 @@ header h1 {
 
 .timeline-month-marker:hover {
     background-color: #e91e63;
-    width: 8px;
+    width: 0px;
     left: -3px;
 }
 
 .timeline-month-marker.active {
     background-color: #e91e63;
-    width: 8px;
+    width: 0px;
     left: -3px;
 }
 
@@ -241,6 +228,21 @@ header h1 {
     z-index: -1;
 }
 
+.miffy-couple {
+    width: 25%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.header-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.0rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 400px;
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: row;
@@ -319,9 +321,6 @@ header h1 {
         padding-left: 0px;
     }
     
-    header h1 {
-        font-size: 2rem;
-    }
 }
 
 @media (max-width: 480px) {

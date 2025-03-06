@@ -73,7 +73,7 @@ const photos = [
 // Custom emojis for each month
 const monthEmojis = {
     'sep21': '🤠',
-    'oct21': '👯',
+    'oct21': '💛',
     'nov21': '🤵',
     'dec21': '🥜',
     'jan22': '🍽️',
