@@ -322,12 +322,6 @@ header h1 {
     header h1 {
         font-size: 2rem;
     }
-    
-    .timeline-month-marker.active::after {
-        left: 8px;
-        top: -6px;
-        font-size: 12px;
-    }
 }
 
 @media (max-width: 480px) {
