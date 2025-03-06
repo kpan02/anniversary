@@ -155,44 +155,77 @@ header h1 {
     gap: 50px;
     max-width: 800px;
     margin: 0 auto;
+    padding-left: 50px;
+}
+
+/* Polaroid-style photo cards */
+.photo-card {
+    background-color: white;
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    background-blend-mode: multiply;
+    border-radius: 2px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px; /* Slightly smaller for more authentic polaroid size */
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .photo-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    scroll-margin-top: 20px;
-    width: 80%;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-bottom: 35px;
+    padding-left: 15px;
 }
 
-.photo-card img {
-    /* width: 100%;  */
-    width: 100%; /* temporary width for the sake of testing */
-    height: auto; 
-    display: block;
-    margin: 0 auto;
-}
-
-.photo-caption {
-    padding-left: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    text-align: left;
+.photo-card:hover {
+    transform: rotate(0) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .photo-date {
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: black;
     font-family: 'EB Garamond', serif;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: #333;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.photo-card img {
+    width: 90%;
+    height: auto;
+    border: 1px solid #f0f0f0;
+    margin: 8px auto 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset;
+    display: block;
 }
 
 .photo-description {
-    color: #555555;
     font-family: 'EB Garamond', serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+    color: black;
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+
+.gallery-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background-color: #ddd;
+    z-index: -1;
 }
 
 @media (max-width: 768px) {

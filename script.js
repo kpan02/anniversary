@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetElement = document.getElementById(photo);
                 
                 if (targetElement) {
-                    // Just scroll to the element
                     targetElement.scrollIntoView({ behavior: 'smooth' });
                 }
             });
@@ -65,49 +64,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Create photo cards
+    // Build photo cards
     photos.forEach((photo, index) => {
-        // Create elements
         const photoCard = document.createElement('div');
         photoCard.className = 'photo-card';
-        photoCard.id = photo; // Add ID for scrolling
+        photoCard.id = photo; 
         
+        const date = document.createElement('div');
+        date.className = 'photo-date';
+        date.textContent = formatDate(photo);
+        photoCard.appendChild(date);
+        
+        // Add image
         const img = document.createElement('img');
-        // Get the file extension by checking what's available in the images folder
         img.src = `images/${photo}.JPG`;
         img.alt = formatDate(photo);
         img.onerror = function() {
-            // If JPG fails, try PNG
             this.src = `images/${photo}.PNG`;
             this.onerror = function() {
-                // If PNG fails, try JPEG
                 this.src = `images/${photo}.JPEG`;
                 this.onerror = function() {
-                    // If JPEG fails, try jpeg (lowercase)
                     this.src = `images/${photo}.jpeg`;
                     this.onerror = null;
                 }
             }
         };
         
-        const caption = document.createElement('div');
-        caption.className = 'photo-caption';
-        
-        const date = document.createElement('div');
-        date.className = 'photo-date';
-        date.textContent = formatDate(photo);
-        
+        photoCard.appendChild(img);
         const description = document.createElement('div');
         description.className = 'photo-description';
-        description.textContent = photoDescriptions[photo] || '---';
-        
-        // Assemble the card
-        caption.appendChild(date);
-        caption.appendChild(description);
-        photoCard.appendChild(img);
-        photoCard.appendChild(caption);
-        
-        // Add to gallery
+        description.textContent = photoDescriptions[photo] || '---'; 
+        photoCard.appendChild(description);
         gallery.appendChild(photoCard);
     });
     
@@ -143,9 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Add scroll event listener - update directly during scroll
-    window.addEventListener('scroll', updateTimelineOnScroll, { passive: true });
-    
-    // Initial update
+    window.addEventListener('scroll', updateTimelineOnScroll, { passive: true })
     updateTimelineOnScroll();
 }); 
