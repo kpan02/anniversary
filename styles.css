@@ -128,8 +128,8 @@ header h1 {
 .timeline-month-marker.active::before {
     content: '';
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 0px;
+    height: 0px;
     background-color: #e91e63;
     border-radius: 50%;
     left: -4px;
@@ -137,7 +137,7 @@ header h1 {
 }
 
 .timeline-month-marker.active::after {
-    content: '❤️';
+    content: attr(data-emoji);
     width: 5px;
     height: 5px;
     background-color: transparent;
@@ -321,6 +321,12 @@ header h1 {
     
     header h1 {
         font-size: 2rem;
+    }
+    
+    .timeline-month-marker.active::after {
+        left: 8px;
+        top: -6px;
+        font-size: 12px;
     }
 }
 

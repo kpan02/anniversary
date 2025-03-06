@@ -70,6 +70,53 @@ const photos = [
     'jan25', 'feb25', 'mar25'
 ];
 
+// Custom emojis for each month
+const monthEmojis = {
+    'sep21': '🤠',
+    'oct21': '👯',
+    'nov21': '🤵',
+    'dec21': '🥜',
+    'jan22': '🍽️',
+    'feb22': '🎭',
+    'mar22': '🍀',
+    'apr22': '🤍',
+    'may22': '🔥',
+    'jun22': '🗺️',
+    'jul22': '🌺',
+    'aug22': '3️⃣',
+    'sep22': '🏈',
+    'oct22': '🐒',
+    'nov22': '🎀',
+    'dec22': '🍦',
+    'jan23': '🥧',
+    'feb23': '🧧',
+    'mar23': '🅿️',
+    'apr23': '🛋️',
+    'may23': '🥟',
+    'jun23': '🐈‍',
+    'jul23': '🎆',
+    'aug23': '4️⃣',
+    'sep23': '👷',
+    'oct23': '🎃',
+    'nov23': '🦧',
+    'dec23': '🌮',
+    'jan24': '🤢',
+    'feb24': '🐘',
+    'mar24': '💐',
+    'apr24': '❤️',
+    'may24': '🎓',
+    'jun24': '🎉',
+    'jul24': '📲',
+    'aug24': '🏝️',
+    'sep24': '🗽',
+    'oct24': '🥯',
+    'nov24': '🏙️',
+    'dec24': '🎄',
+    'jan25': '🌎',
+    'feb25': '🛥️',
+    'mar25': '💌',
+};
+
 // Function to format the date
 function formatDate(filename) {
     const month = filename.substring(0, 3);

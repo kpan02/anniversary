@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const monthMarker = document.createElement('div');
             monthMarker.className = 'timeline-month-marker';
             monthMarker.dataset.target = photo;
+            monthMarker.dataset.month = photo.substring(0, 3);
+            monthMarker.dataset.emoji = monthEmojis[photo] || '❤️';
             monthMarker.style.top = `${position}%`;
             
             // Check if this month marker coincides with a year marker
@@ -114,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         photoCards.forEach(card => {
             const rect = card.getBoundingClientRect();
-            // Calculate how much of the card is visible in the viewport
             const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
             const visibility = visibleHeight > 0 ? visibleHeight / rect.height : 0;
             
