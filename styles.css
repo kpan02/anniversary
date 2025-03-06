@@ -244,6 +244,20 @@ body {
 }
 
 @media (max-width: 768px) {
+    .miffy-couple {
+        width: 50%;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    .header-text {
+        font-size: 0.9rem;
+        margin-top: 100px;
+        margin-bottom: 400px;
+    }
+}
+
+@media (max-width: 768px) {
     .container {
         flex-direction: row;
         padding-left: 0;
