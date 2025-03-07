@@ -188,6 +188,15 @@ body {
     padding-left: 15px;
 }
 
+.photo-card img {
+    width: 90%;
+    height: auto;
+    border: 1px solid #f0f0f0;
+    margin: 8px auto 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset;
+    display: block;
+}
+
 .photo-date {
     font-family: 'EB Garamond', serif;
     font-weight: bold;
@@ -198,22 +207,14 @@ body {
     text-align: center;
 }
 
-.photo-card img {
-    width: 90%;
-    height: auto;
-    border: 1px solid #f0f0f0;
-    margin: 8px auto 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset;
-    display: block;
-}
-
 .photo-description {
     font-family: 'EB Garamond', serif;
     font-size: 1.1rem;
     text-align: center;
     color: black;
-    line-height: 1.4;
+    line-height: 1.1;
     margin-top: 5px;
+    white-space: pre-line;
 }
 
 
@@ -344,6 +345,16 @@ body {
     .gallery {
         max-width: 90%;
         padding-left: 0px;
+    }
+
+    .photo-date {
+        font-size: 1.1rem;
+    }
+    
+    .photo-description {
+        font-size: 1rem;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
     .footer .footer-text {
