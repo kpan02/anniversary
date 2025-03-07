@@ -1,7 +1,8 @@
+/* ===== IMPORTS ===== */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-
+/* ===== RESET & BASE STYLES ===== */
 * {
     margin: 0;
     padding: 0;
@@ -16,11 +17,39 @@ body {
     padding: 20px;
 }
 
+/* ===== LAYOUT CONTAINERS ===== */
 .container {
     display: flex;
     position: relative;
 }
 
+.content {
+    flex: 1;
+}
+
+/* ===== HEADER STYLES ===== */
+.header-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.0rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 350px;
+}
+
+.miffy-couple {
+    width: 25%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.down-arrow {
+    margin-top: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+/* ===== TIMELINE COMPONENTS ===== */
 .timeline {
     position: sticky;
     top: 20px;
@@ -41,6 +70,7 @@ body {
     margin: 10px 0;
 }
 
+/* Year markers */
 .timeline-year-marker {
     position: absolute;
     width: 100%;
@@ -64,6 +94,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
+/* Month markers */
 .timeline-month-marker {
     position: absolute;
     width: 6px;
@@ -87,7 +118,6 @@ body {
     pointer-events: auto;
 }
 
-/* Add a larger invisible clickable area */
 .timeline-month-marker::after {
     content: '';
     position: absolute;
@@ -111,7 +141,6 @@ body {
     left: -3px;
 }
 
-/* Add a visible indicator for active marker */
 .timeline-month-marker.active::before {
     content: '';
     position: absolute;
@@ -131,6 +160,7 @@ body {
     position: absolute;
 }
 
+/* Timeline tooltip */
 .timeline-tooltip {
     position: absolute;
     left: 15px;
@@ -150,10 +180,7 @@ body {
     opacity: 1;
 }
 
-.content {
-    flex: 1;
-}
-
+/* ===== GALLERY & PHOTO CARDS ===== */
 .gallery {
     display: flex;
     flex-direction: column;
@@ -163,7 +190,17 @@ body {
     padding-left: 50px;
 }
 
-/* Polaroid-style photo cards */
+.gallery-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background-color: #ddd;
+    z-index: -1;
+}
+
 .photo-card {
     background-color: white;
     background-size: 20px 20px;
@@ -219,40 +256,21 @@ body {
     padding-right: 15px;
 }
 
-
-.gallery-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 20px;
-    width: 2px;
-    background-color: #ddd;
-    z-index: -1;
-}
-
-.miffy-couple {
-    width: 25%;
-    margin-bottom: 50px;
-    margin-top: 50px;
-}
-
-.header-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.0rem;
-    font-weight: 500;
+/* ===== FOOTER STYLES ===== */
+.footer {
+    width: 100%;
     text-align: center;
-    margin-top: 150px;
-    margin-bottom: 350px;
 }
 
-.down-arrow {
-    margin-top: 20px;;
-    width:  30px;
-    height: 30px;
+.footer .miffy-couple {
+    margin-top: 0px;
+    margin-bottom: 5px;
 }
 
+/* ===== RESPONSIVE STYLES ===== */
+/* Tablet and smaller devices */
 @media (max-width: 768px) {
+    /* Header responsive styles */
     .miffy-couple {
         width: 50%;
         margin-bottom: 30px;
@@ -264,29 +282,19 @@ body {
         margin-top: 175px;
         margin-bottom: 275px;
     }
-}
-
-.footer {
-    width: 100%;
-    text-align: center;
-}
-
-.footer .miffy-couple {
-    margin-bottom: 5px;
-}
-
-
-
-@media (max-width: 768px) {
+    
+    /* Layout responsive styles */
     .container {
         flex-direction: row;
         padding-left: 0;
     }
-
-    .photo-card {
-        width: 100%;
+    
+    .content {
+        flex: 1;
+        padding-left: 5px;
     }
     
+    /* Timeline responsive styles */
     .timeline {
         position: sticky;
         width: 35px;
@@ -298,13 +306,6 @@ body {
         will-change: auto;
         transform: none;
         user-select: none;
-    }
-    
-    body {
-        padding-top: 20px;
-        padding-right: 10px;
-        padding-bottom: 20px;
-        padding-left: 5px;
     }
     
     .timeline-line {
@@ -345,16 +346,16 @@ body {
         display: none;
     }
     
-    .content {
-        flex: 1;
-        padding-left: 5px;
-    }
-    
+    /* Gallery responsive styles */
     .gallery {
         max-width: 90%;
         padding-left: 0px;
     }
-
+    
+    .photo-card {
+        width: 100%;
+    }
+    
     .photo-date {
         font-size: 1.1rem;
     }
@@ -362,13 +363,22 @@ body {
     .photo-description {
         font-size: 1rem;
     }
-
+    
+    /* Body responsive styles */
+    body {
+        padding-top: 20px;
+        padding-right: 10px;
+        padding-bottom: 20px;
+        padding-left: 5px;
+    }
+    
+    /* Footer responsive styles */
     .footer .footer-text {
         font-size: 0.75rem;
     }
-    
 }
 
+/* Mobile devices */
 @media (max-width: 480px) {
     .timeline {
         width: 30px;
