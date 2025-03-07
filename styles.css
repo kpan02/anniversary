@@ -257,6 +257,17 @@ body {
     }
 }
 
+.footer {
+    width: 100%;
+    text-align: center;
+}
+
+.footer .miffy-couple {
+    margin-bottom: 5px;
+}
+
+
+
 @media (max-width: 768px) {
     .container {
         flex-direction: row;
@@ -333,6 +344,10 @@ body {
     .gallery {
         max-width: 90%;
         padding-left: 0px;
+    }
+
+    .footer .footer-text {
+        font-size: 0.75rem;
     }
     
 }
