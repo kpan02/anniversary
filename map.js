@@ -1,17 +1,34 @@
-// Memory Map JavaScript using Leaflet
-
-// Initialize the map when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     initMap();
 });
 
 function initMap() {
-    const map = L.map('memory-map', {zoomControl: false}).setView([36.143966838385715, -86.80263765874552], 14);
+    const map = L.map('memory-map', {zoomControl: false}).setView([36.147657691670254, -86.80337393560464], 14);
 
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: '',
         maxZoom: 19
     }).addTo(map);
+
+    // Add map layer control
+    const baseMaps = {
+        "Street": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '',
+            maxZoom: 19
+        }),
+        "Satellite": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '',
+            maxZoom: 18
+        }),
+        "Minimalist": L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            attribution: ''
+        })
+    };
+    
+
+    baseMaps["Street"].addTo(map);
+    L.control.layers(baseMaps, null, {position: 'topleft'}).addTo(map);
 
     // more minimalistic map
     // L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
