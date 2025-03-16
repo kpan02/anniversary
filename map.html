@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memory Map 🗺️</title>
+    <link rel="icon" type="image/png" href="assets/miffy-couple.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="map-styles.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+</head>
+<body class="map-page">
+    <header>
+        <div class="header-text">
+            Our Memory Map 🗺️
+            All the places we've been together.
+        </div>
+    </header>
+    
+    <div class="map-container">
+        <div id="memory-map"></div>
+        
+        <div class="map-legend">
+            <div class="legend-item">
+                <div class="legend-marker"></div>
+                <div class="legend-text">Places we've visited</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="back-button-container">
+        <a href="index.html" class="back-button">Back to Gallery ↩️</a>
+    </div>
+
+
+    <!-- Include data.js first -->
+    <script src="data.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <!-- Then include map script -->
+    <script src="map.js"></script>
+</body>
+</html> 
