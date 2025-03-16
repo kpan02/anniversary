@@ -7,12 +7,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initMap() {
     // Create a new Leaflet map centered on a default location
-    const map = L.map('memory-map').setView([39.8283, -98.5795], 4); // Center of US as default
-    
+    const map = L.map('memory-map').setView([36.143966838385715, -86.80263765874552], 14);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
+
+    var heartIcon = L.icon({
+        iconUrl: 'assets/heart emoji.png',
+        iconSize: [21, 21],
+        iconAnchor: [16, 16],
+        popupAnchor: [0, -35]
+    });
     
     // Keep track of all markers for bounding
     const markers = [];
@@ -29,10 +35,11 @@ function initMap() {
         
         // Create marker
         const marker = L.marker([location.lat, location.lng], {
-            title: formatDate(photoId)
+            title: formatDate(photoId),
+            icon: heartIcon
         }).addTo(map);
         
-        // Create popup content
+        // Create popup 
         const popupContent = `
             <div class="map-info-window">
                 <img src="images/${photoId}.JPG" onerror="this.onerror=null; this.src='images/${photoId}.PNG'" alt="${formatDate(photoId)}">
@@ -41,27 +48,9 @@ function initMap() {
                 <div class="emoji">${monthEmojis[photoId] || '❤️'}</div>
             </div>
         `;
-        
-        // Add popup to marker
         marker.bindPopup(popupContent, {
-            maxWidth: 250
+            maxWidth: 300
         });
-        
-        // Store marker for bounding
         markers.push(marker);
     });
-    
-    // If we have valid locations, fit the map to show all markers
-    if (validLocations > 0) {
-        // Create a bounds object
-        const group = new L.featureGroup(markers);
-        
-        // Fit the map to the bounds
-        map.fitBounds(group.getBounds().pad(0.1)); // Add 10% padding around the bounds
-        
-        // Limit max zoom
-        if (map.getZoom() > 12) {
-            map.setZoom(12);
-        }
-    }
 } 

@@ -18,35 +18,6 @@
     z-index: 1; /* Ensure proper stacking context */
 }
 
-/* Map Legend */
-.map-legend {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-top: 20px;
-    display: inline-block;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.legend-marker {
-    width: 20px;
-    height: 20px;
-    background-color: #e91e63;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.legend-text {
-    font-family: 'EB Garamond', serif;
-    font-size: 1rem;
-}
-
 /* Back Button */
 .back-button-container {
     text-align: center;
@@ -144,7 +115,7 @@
         max-width: 120px;
     }
     
-    .back-button, .map-legend {
+    .back-button {
         font-size: 0.9rem;
     }
 } 
