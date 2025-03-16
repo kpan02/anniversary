@@ -1,6 +1,9 @@
 /* Map Page Specific Styles */
 .map-page .header-text {
-    margin-bottom: 50px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 2.0rem;
+    font-weight: 600;
 }
 
 .map-container {
@@ -27,19 +30,19 @@
 .back-button {
     display: inline-block;
     background-color: white;
-    color: #e91e63;
-    border: 2px solid #e91e63;
-    padding: 10px 20px;
+    color: black;
+    border: 2px solid black;
+    padding: 8px 12px;
     border-radius: 30px;
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .back-button:hover {
-    background-color: #e91e63;
+    background-color: black;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
@@ -94,16 +97,28 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     #memory-map {
-        height: 400px;
+        height: 500px;
+    }
+
+    .back-button-container {
+        text-align: center;
+        margin-top: 50px;
     }
 }
 
 @media (max-width: 480px) {
     #memory-map {
-        height: 350px;
+        height: 450px;
     }
     
     .back-button {
         font-size: 0.9rem;
+    }
+
+    .back-button-container {
+        text-align: center;
+        transform: scale(0.8);
+        margin-top: 20px;
+        margin-bottom: 0px;
     }
 } 
