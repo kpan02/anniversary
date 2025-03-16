@@ -6,12 +6,24 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initMap() {
-    // Create a new Leaflet map centered on a default location
-    const map = L.map('memory-map').setView([36.143966838385715, -86.80263765874552], 14);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    const map = L.map('memory-map', {zoomControl: false}).setView([36.143966838385715, -86.80263765874552], 14);
+
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '',
+        maxZoom: 19
     }).addTo(map);
+
+    // more minimalistic map
+    // L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    //     maxZoom: 19,
+    //     attribution: ''
+    // }).addTo(map);
+
+    //satellite map
+    // L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    //     attribution: '',
+    //     maxZoom: 18
+    // }).addTo(map);
 
     var heartIcon = L.icon({
         iconUrl: 'assets/heart emoji.png',
@@ -20,20 +32,14 @@ function initMap() {
         popupAnchor: [-5, -12]
     });
     
-    // Keep track of all markers for bounding
     const markers = [];
     let validLocations = 0;
-    
-    // Add markers for each photo location
+
     photos.forEach(photoId => {
         const location = locations[photoId];
-        
-        // Skip if no valid coordinates
         if (!location || (location.lat === 0 || location.lng === 0)) return;
-        
         validLocations++;
         
-        // Create marker
         const marker = L.marker([location.lat, location.lng], {
             title: formatDate(photoId),
             icon: heartIcon
