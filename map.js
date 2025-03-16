@@ -51,7 +51,7 @@ function initMap() {
                 <div class="date">${formatDate(photoId)}</div>
                 <div style="text-align: center; width: 100%;">
                     <img src="images/${photoId}.JPG" 
-                         onerror="if(this.src.endsWith('.JPG')){this.src='images/${photoId}.JPEG';}else if(this.src.endsWith('.JPEG')){this.src='images/${photoId}.PNG';}" 
+                         onerror="if(this.src.endsWith('.JPG')){this.src='images/${photoId}.JPEG';}else if(this.src.endsWith('.JPEG')){this.src='images/${photoId}.jpeg';}else if(this.src.endsWith('.jpeg')){this.src='images/${photoId}.PNG';}" 
                          class="popup-image"
                          alt="${formatDate(photoId)}">
                 </div>
