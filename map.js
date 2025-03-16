@@ -17,7 +17,7 @@ function initMap() {
         iconUrl: 'assets/heart emoji.png',
         iconSize: [21, 21],
         iconAnchor: [16, 16],
-        popupAnchor: [0, -35]
+        popupAnchor: [-5, -12]
     });
     
     // Keep track of all markers for bounding
@@ -42,14 +42,26 @@ function initMap() {
         // Create popup 
         const popupContent = `
             <div class="map-info-window">
-                <img src="images/${photoId}.JPG" onerror="this.onerror=null; this.src='images/${photoId}.PNG'" alt="${formatDate(photoId)}">
                 <div class="date">${formatDate(photoId)}</div>
+                <div style="text-align: center; width: 100%;">
+                    <img src="images/${photoId}.JPG" 
+                         onerror="if(this.src.endsWith('.JPG')){this.src='images/${photoId}.JPEG';}else if(this.src.endsWith('.JPEG')){this.src='images/${photoId}.PNG';}" 
+                         class="popup-image"
+                         alt="${formatDate(photoId)}">
+                </div>
                 <div class="description">${photoDescriptions[photoId] || ''}</div>
-                <div class="emoji">${monthEmojis[photoId] || '❤️'}</div>
             </div>
         `;
+        
+        // Screen size over 768px (desktop) -- max width 320px
+        // Screen size under 768px (mobile) -- max width 125px
+        const popupWidth = window.innerWidth < 768 ? 125 : 320;
+        
         marker.bindPopup(popupContent, {
-            maxWidth: 300
+            maxWidth: popupWidth,
+            minWidth: popupWidth,
+            autoPan: true,
+            className: 'custom-popup'
         });
         markers.push(marker);
     });
