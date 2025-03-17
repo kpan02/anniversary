@@ -19,7 +19,6 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     margin-bottom: 20px;
     z-index: 1; 
-    border: 4px double #ccc;
     outline: 1px;
 }
 
