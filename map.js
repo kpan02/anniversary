@@ -76,9 +76,9 @@ function initMap() {
             </div>
         `;
         
-        // Screen size over 768px (desktop) -- max width 320px
+        // Screen size over 768px (desktop) -- max width 200px
         // Screen size under 768px (mobile) -- max width 125px
-        const popupWidth = window.innerWidth < 768 ? 125 : 320;
+        const popupWidth = window.innerWidth < 768 ? 125 : 200;
         
         marker.bindPopup(popupContent, {
             maxWidth: popupWidth,
@@ -88,4 +88,10 @@ function initMap() {
         });
         markers.push(marker);
     });
+
+    // Back button --> returns to the bottom of the gallery page rather than the top
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+        backButton.href = "index.html#gallery-bottom";
+    }
 } 
