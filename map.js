@@ -93,6 +93,5 @@ function initMap() {
     const backButton = document.querySelector('.back-button');
     if (backButton) {
         backButton.href = "index.html#gallery-bottom";
-        backButton.setAttribute('onclick', 'setTimeout(function(){}, 800);');
     }
 } 
