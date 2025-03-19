@@ -27,5 +27,5 @@ document.addEventListener('DOMContentLoaded', function() {
     
     columnSlider.addEventListener('input', updateColumnCount);
     initPhotoGrid();
-    updateColumnCount(); // Set initial column count
+    updateColumnCount(); 
 });

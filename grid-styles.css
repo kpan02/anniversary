@@ -122,18 +122,3 @@
     }
 }
 
-@media (max-width: 600px) {
-    .controls-container {
-        justify-content: center;
-    }
-    
-    #photo-grid {
-        column-count: 3 !important; /* Override any custom setting on smaller screens */
-    }
-}
-
-@media (max-width: 400px) {
-    #photo-grid {
-        column-count: 2 !important;
-    }
-}
