@@ -272,6 +272,9 @@ body {
     margin-top: 7px;
     margin-bottom: 50px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 .map-button {
