@@ -12,11 +12,18 @@
 <body class="grid-page">
     <header>
         <div class="header-text">
-           Grid View
+           Memory Mosaic
         </div>
     </header>
     
     <div class="grid-container">
+        <div class="controls-container">
+            <div class="column-selector">
+                <label for="column-count">Columns:</label>
+                <input type="range" id="column-count" min="4" max="8" value="5" step="1">
+                <span id="column-value">5</span>
+            </div>
+        </div>
         <div id="photo-grid">
             <!-- Photos will be loaded with JavaScript -->
         </div>

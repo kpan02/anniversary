@@ -12,16 +12,74 @@
     padding: 0 20px;
 }
 
+/* Controls Styling */
+.controls-container {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.column-selector {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: 'EB Garamond', serif;
+}
+
+.column-selector label {
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.column-selector input {
+    margin-right: 8px;
+    width: 100px;
+}
+
+.column-selector span {
+    font-weight: bold;
+    min-width: 15px;
+    text-align: center;
+}
+
 #photo-grid {
     width: 100%;
     min-height: 400px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
+    column-count: 5;
+    column-gap: 10px;
+    padding: 15px;
     background-color: white;
+}
+
+/* Grid Item Styles */
+.grid-item {
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100%;
+    break-inside: avoid;
+}
+
+.grid-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease;
 }
 
 /* Back Button */
@@ -30,11 +88,52 @@
     margin: 40px 0;
 }
 
+.back-button {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.back-button:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     #photo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        grid-gap: 15px;
-        padding: 15px;
+        column-count: 4;
+    }
+}
+
+@media (max-width: 900px) {
+    .column-selector input {
+        width: 80px;
+    }
+}
+
+@media (max-width: 600px) {
+    .controls-container {
+        justify-content: center;
+    }
+    
+    #photo-grid {
+        column-count: 3 !important; /* Override any custom setting on smaller screens */
+    }
+}
+
+@media (max-width: 400px) {
+    #photo-grid {
+        column-count: 2 !important;
     }
 }
